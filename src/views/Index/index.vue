@@ -1,14 +1,14 @@
 <template>
   <div>
     <nav-header />
-    <article-item />
+    <index-content />
   </div>
 </template>
 
 <script lang='ts'>
 import {defineComponent, reactive} from 'vue'
 import navHeader from './componets/navHeader.vue'
-import articleItem from './componets/content.vue'
+import indexContent from './componets/content.vue'
 export default defineComponent({
   name: '',
   props: {
@@ -16,7 +16,7 @@ export default defineComponent({
   },
   components: {
     navHeader,
-    articleItem
+    indexContent
   },
   setup () {
     return {}
