@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "15548833",
+      "name": "Logo GitHub",
+      "font_class": "huaban88",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "17677873",
+      "name": "评论",
+      "font_class": "pinglun1",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "18130758",
+      "name": "点赞",
+      "font_class": "dianzan_active",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "20157479",
+      "name": "eye",
+      "font_class": "eye1",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "21718414",
+      "name": "日 历",
+      "font_class": "rili",
+      "unicode": "e736",
+      "unicode_decimal": 59190
+    },
+    {
       "icon_id": "12099823",
       "name": "图库",
       "font_class": "tuku",
