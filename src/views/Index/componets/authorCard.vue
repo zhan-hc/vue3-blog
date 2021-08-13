@@ -1,5 +1,5 @@
 <template>
-  <div class="author-wrap">
+  <div class="author-wrap card">
     <div class="avatar-img">
       <img src="@/assets/images/bg.gif" alt="">
     </div>
@@ -27,7 +27,7 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, reactive} from 'vue'
+import { defineComponent } from 'vue'
 export default defineComponent({
   name: '',
   props: {
@@ -47,8 +47,6 @@ export default defineComponent({
   width: 277px;
   height: 346px;
   padding: 20px;
-  border-radius: 12px 8px 8px 12px;
-  box-shadow: 0 4px 8px 6px rgba(7, 17, 27, 0.06);
   text-align: center;
   .avatar-img{
     height: 110px;

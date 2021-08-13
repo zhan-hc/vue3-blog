@@ -9,3 +9,8 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: $clamp;
 }
+@mixin ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

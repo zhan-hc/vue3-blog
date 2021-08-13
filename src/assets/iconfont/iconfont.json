@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "13363815",
+      "name": "search",
+      "font_class": "search-copy",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "19165727",
+      "name": "category",
+      "font_class": "category",
+      "unicode": "e6b0",
+      "unicode_decimal": 59056
+    },
+    {
+      "icon_id": "12942306",
+      "name": "recent",
+      "font_class": "noun_recent_",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
       "icon_id": "15548833",
       "name": "Logo GitHub",
       "font_class": "huaban88",

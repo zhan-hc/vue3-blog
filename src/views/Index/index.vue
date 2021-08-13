@@ -6,9 +6,9 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, reactive} from 'vue'
+import { defineComponent } from 'vue'
 import navHeader from './componets/navHeader.vue'
-import indexContent from './componets/content.vue'
+import indexContent from './componets/indexContent.vue'
 export default defineComponent({
   name: '',
   props: {

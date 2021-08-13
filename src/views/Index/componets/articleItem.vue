@@ -1,6 +1,6 @@
 <template>
   <div class="article-wrap">
-    <div class="article-item">
+    <div class="article-item card">
       <div class="article-img">
         <img src="" alt="">
       </div>
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="article-item">
+    <div class="article-item card">
       <div class="article-img">
         <img src="" alt="">
       </div>
@@ -34,7 +34,7 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, reactive} from 'vue'
+import { defineComponent } from 'vue'
 export default defineComponent({
   name: '',
   props: {
@@ -54,14 +54,16 @@ export default defineComponent({
   .article-item{
     display: flex;
     height: 280px;
-    border-radius: 12px 8px 8px 12px;
-    box-shadow: 0 4px 8px 6px rgba(7, 17, 27, 0.06);
-    margin-bottom: 30px;
     .article-img{
       width: 350px;
       height: 100%;
       background-color: #196a73;
       border-radius: 12px 0 0 12px;
+      img{
+        &:hover{
+          transform: scale(1.1);
+        }
+      }
     }
     .article-info{
       position: relative;

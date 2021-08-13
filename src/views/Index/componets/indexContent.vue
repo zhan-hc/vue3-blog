@@ -5,14 +5,16 @@
     </div>
     <div class="content-right">
       <author-card />
+      <recent-post />
     </div>
   </div>
 </template>
 
 <script lang='ts'>
-import {defineComponent, reactive} from 'vue'
+import { defineComponent } from 'vue'
 import articleItem from './articleItem.vue'
 import authorCard from './authorCard.vue'
+import recentPost from './recentPost.vue'
 export default defineComponent({
   name: '',
   props: {
@@ -20,7 +22,8 @@ export default defineComponent({
   },
   components: {
     articleItem,
-    authorCard
+    authorCard,
+    recentPost
   },
   setup () {
     return {}

@@ -6,9 +6,15 @@
         <span>笨鸟博客</span>
       </div>
       <nav class="nav-wrap">
-        <div class="nav-item"><i class="iconfont icon-xuanzhongshangcheng-copy"></i> 主页</div>
-        <div class="nav-item"><i class="iconfont icon-tag1"></i> 标签</div>
-        <div class="nav-item"><i class="iconfont icon-tuku"></i> 图库</div>
+        <header-input />
+        <div
+          v-for="(item, i) in navList"
+          :key="i"
+          class="nav-item"
+        >
+          <i class="iconfont" :class="item.icon" />
+          <span>{{item.name}}</span>
+        </div>
       </nav>
     </div>
     <iframe frameborder="0" scrolling="no" src="sawtooth/sawtooth.html" width="100%" height="650px"></iframe>
@@ -16,16 +22,23 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent} from 'vue'
+import {defineComponent, ref} from 'vue'
+import { navList } from '../../../assets/ts/common'
+import headerInput from '@/components/base/searchInput.vue'
 export default defineComponent({
   name: '',
   props: {
     
   },
   components: {
+    headerInput
   },
   setup () {
-    return {}
+    const searchVal = ref('')
+    return {
+      navList,
+      searchVal
+    }
   }
 })
 </script>
@@ -67,7 +80,13 @@ export default defineComponent({
         display: inline-block;
         margin-right: 15px;
         font-size: 16px;
+        .iconfont{
+          margin-right: 3px;
+        }
       }
+    }
+    .el-input {
+      width: 150px;
     }
   }
 }
