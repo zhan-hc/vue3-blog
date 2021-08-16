@@ -1,6 +1,6 @@
 <template>
 <div class="search-wrap">
-  <i class="iconfont icon-search-copy"></i>
+  <i class="iconfont icon-chakan"></i>
   <input type="text">
 </div>
 </template>
@@ -20,7 +20,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang='scss'>
+<style scoped lang='scss'>
 .search-wrap{
   display: inline-block;
   background-color: #fff;
@@ -36,6 +36,7 @@ export default defineComponent({
   }
   .iconfont{
     margin-right: 5px;
+    cursor: pointer;
   }
   input{
     width: 160px;
@@ -53,9 +54,7 @@ export default defineComponent({
   .search-wrap{
     border: none;
     background-color: transparent;
-    .iconfont{
-      margin-right: 5px;
-    }
+    margin-right: 0;
     input{
       display: none;
     }

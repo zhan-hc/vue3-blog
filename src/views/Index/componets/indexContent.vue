@@ -40,8 +40,6 @@ export default defineComponent({
     width: 900px;
     margin-right: 40px;
   }
-  .content-right{
-  }
 }
 
 </style>

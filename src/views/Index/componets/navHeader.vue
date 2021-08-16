@@ -15,29 +15,48 @@
           <i class="iconfont" :class="item.icon" />
           <span>{{item.name}}</span>
         </div>
+        <div class="nav-menu">
+          <i class="iconfont icon-detail2" @click="show"></i>
+        </div>
       </nav>
     </div>
     <iframe frameborder="0" scrolling="no" src="sawtooth/sawtooth.html" width="100%" height="650px"></iframe>
   </header>
+  <drop-left :visibleShow="visibleShow">
+    <template #content>
+      <user-info />
+    </template>
+  </drop-left>
 </template>
 
 <script lang='ts'>
-import {defineComponent, ref} from 'vue'
-import { navList } from '../../../assets/ts/common'
+import {defineComponent, ref, provide} from 'vue'
+import { navList } from '@/assets/ts/common'
 import headerInput from '@/components/base/searchInput.vue'
+import dropLeft from '@/components/base/dropLeft.vue'
+import userInfo from '@/components/user/userInfo.vue'
 export default defineComponent({
   name: '',
   props: {
     
   },
   components: {
-    headerInput
+    headerInput,
+    dropLeft,
+    userInfo
   },
   setup () {
     const searchVal = ref('')
+    const visibleShow = ref(false)
+    provide('visibleShow', visibleShow)
+    const show = () => {
+      visibleShow.value = true
+    }
     return {
+      show,
       navList,
-      searchVal
+      searchVal,
+      visibleShow
     }
   }
 })
@@ -54,11 +73,11 @@ export default defineComponent({
     height: 40px;
     line-height: 40px;
     padding: 10px 20px;
+    z-index: 5;
     // @include backgroundColor;
     background-color: rgba(255,255,255,0.5);
     .navbar-left{
       display: inline-block;
-      max-width: 1000px;
       font-weight: bold;
       img{
         vertical-align: top;
@@ -84,9 +103,24 @@ export default defineComponent({
           margin-right: 3px;
         }
       }
+      .nav-menu{
+        display: none;
+        cursor: pointer;
+      }
     }
     .el-input {
       width: 150px;
+    }
+    @media screen and (max-width: 750px) {
+      .nav-wrap{
+        .nav-item {
+          display: none;
+        }
+        .nav-menu{
+          display: inline-block;
+          // margin-right: 10px;
+        }
+      }
     }
   }
 }
