@@ -8,13 +8,6 @@
         </transition>
     </div>
   </transition>
-    <!-- <div class="drop-wrap" v-show="visibleShow" @click.self="visibleShow = false">
-      <transition  name="left">
-      <div class="drop-content" v-show="visibleShow">
-        <slot name="content" />
-      </div>
-      </transition>
-    </div> -->
 </template>
 
 <script lang='ts'>
@@ -23,10 +16,6 @@ import { defineComponent, inject } from 'vue'
 export default defineComponent({
   name: 'dropLeft',
   props: {
-    // visibleShow: {
-    //   type: Boolean,
-    //   default: () => false
-    // }
   },
   components: {
   },

@@ -91,10 +91,8 @@ export default defineComponent({
   .nav-item{
     margin-bottom: 10px;
     font-size: 16px;
-    cursor: pointer;
     font-weight: bold;
     letter-spacing: 2px;
-    cursor: pointer;
     .iconfont{
       margin-right: 10px;
     }
