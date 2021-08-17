@@ -20,7 +20,7 @@
         </div>
       </nav>
     </div>
-    <iframe frameborder="0" scrolling="no" src="sawtooth/sawtooth.html" width="100%" height="650px"></iframe>
+    <iframe class="navbar-main" frameborder="0" scrolling="no" src="sawtooth/sawtooth.html" width="100%" height="650px"></iframe>
   </header>
   <drop-left :visibleShow="visibleShow">
     <template #content>
@@ -118,9 +118,23 @@ export default defineComponent({
         }
         .nav-menu{
           display: inline-block;
-          // margin-right: 10px;
         }
       }
+    }
+  }
+  @media screen and (max-width: 750px) {
+    .navbar-header{
+      .nav-wrap{
+        .nav-item {
+          display: none;
+        }
+        .nav-menu{
+          display: inline-block;
+        }
+      }
+    }
+    .navbar-main{
+      height: 400px;
     }
   }
 }

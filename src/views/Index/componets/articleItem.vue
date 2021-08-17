@@ -92,35 +92,39 @@ export default defineComponent({
       }
     }
   }
-  @media screen and (max-width: 850px) {
-  .article-item{
-    margin: 20px;
-    height: auto;
-    .article-img{
-      display: none;
-    }
-    .article-info{
-      padding: 10px 20px;
-      .title{
-        margin-bottom: 10px;
-      }
-      .desc{
+}
+@media screen and (max-width: 850px) {
+  .article-wrap{
+    padding: 0 25px;
+    margin: 0 auto;
+    .article-item{
+      height: auto;
+      display: block;
+      .article-img{
         display: none;
       }
-      .time{
-        position: absolute;
-        right: 20px;
-      }
-      .action{
-        position: relative;
-        display: block;
-        bottom: 0;
-        left: 0;
+      .article-info{
+        padding: 10px 20px;
+        .title{
+          font-size: 22px;
+          margin-bottom: 10px;
+        }
+        .desc{
+          display: none;
+        }
+        .time{
+          position: absolute;
+          right: 20px;
+        }
+        .action{
+          position: relative;
+          display: block;
+          bottom: 0;
+          left: 0;
+        }
       }
     }
   }
 }
-}
-
 
 </style>

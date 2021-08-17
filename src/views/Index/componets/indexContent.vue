@@ -45,6 +45,10 @@ export default defineComponent({
 @media screen and (max-width: 850px) {
   .content-wrap{
     width: auto;
+    margin: 20px auto;
+    .content-left{
+      margin-right: 0;
+    }
     .content-right{
       display: none;
     }

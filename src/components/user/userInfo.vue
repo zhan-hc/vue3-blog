@@ -94,6 +94,7 @@ export default defineComponent({
     cursor: pointer;
     font-weight: bold;
     letter-spacing: 2px;
+    cursor: pointer;
     .iconfont{
       margin-right: 10px;
     }
