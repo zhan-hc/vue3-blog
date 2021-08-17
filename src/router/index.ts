@@ -1,18 +1,30 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import index from '../views/Index/index.vue'
-
+import manageIndex from '../views/manageSystem/index.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: ' index',
     component: index
   }
-  // ,
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
+  ,
+  {
+    path: '/manageIndex',
+    name: 'manageIndex',
+    component: manageIndex,
+    children:[
+      {
+        path: '',
+        name: 'manageMain',
+        component: () => import('../views/manageSystem/main.vue'),
+      },
+      {
+        path: 'blog',
+        name: 'manageBlog',
+        component: () => import('../views/manageSystem/blog.vue'),
+      }
+    ]
+  }
 ]
 
 const router = createRouter({
