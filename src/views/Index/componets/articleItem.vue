@@ -5,7 +5,7 @@
         <img src="" alt="">
       </div>
       <div class="article-info">
-        <div class="title">收到回复艰苦大师</div>
+        <div class="title">vue3的新特性</div>
         <div class="time"><i class="iconfont icon-rili"></i> 2021.03.26</div>
         <div class="desc">问题，当数据过多时，渲染出现卡顿。因为 dom 数量过大。实现方案将树形数据和 dom 扁平化虚拟长列表控制 dom 渲染数量1.扁平化扁平化tree的DOM结构图-1由上图可以看出经过扁平化处理后的父子节点dom是同级的，接下来我们来实现将tree数据扁平化处理。</div>
         <div class="action">
@@ -20,7 +20,7 @@
         <img src="" alt="">
       </div>
       <div class="article-info">
-        <div class="title">收到回复艰苦大师</div>
+        <div class="title">http和https的区别</div>
         <div class="time"><i class="iconfont icon-rili"></i> 2021.03.26</div>
         <div class="desc">问题，当数据过多时，渲染出现卡顿。因为 dom 数量过大。实现方案将树形数据和 dom 扁平化虚拟长列表控制 dom 渲染数量1.扁平化扁平化tree的DOM结构图-1由上图可以看出经过扁平化处理后的父子节点dom是同级的，接下来我们来实现将tree数据扁平化处理。</div>
         <div class="action">
@@ -92,6 +92,34 @@ export default defineComponent({
       }
     }
   }
+  @media screen and (max-width: 850px) {
+  .article-item{
+    margin: 20px;
+    height: auto;
+    .article-img{
+      display: none;
+    }
+    .article-info{
+      padding: 10px 20px;
+      .title{
+        margin-bottom: 10px;
+      }
+      .desc{
+        display: none;
+      }
+      .time{
+        position: absolute;
+        right: 20px;
+      }
+      .action{
+        position: relative;
+        display: block;
+        bottom: 0;
+        left: 0;
+      }
+    }
+  }
+}
 }
 
 

@@ -40,6 +40,14 @@ export default defineComponent({
     width: 900px;
     margin-right: 40px;
   }
+  
 }
-
+@media screen and (max-width: 850px) {
+  .content-wrap{
+    width: auto;
+    .content-right{
+      display: none;
+    }
+  }
+}
 </style>
