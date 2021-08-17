@@ -20,7 +20,7 @@
         </div>
       </nav>
     </div>
-    <iframe class="navbar-main" frameborder="0" scrolling="no" src="sawtooth/sawtooth.html" width="100%" height="650px"></iframe>
+    <iframe class="navbar-main" frameborder="0" scrolling="no" src="sawtooth/sawtooth.html" height="650px"></iframe>
   </header>
   <drop-left :visibleShow="visibleShow">
     <template #content>
@@ -122,6 +122,10 @@ export default defineComponent({
       }
     }
   }
+  &-main{
+    width: 100%;
+    min-width: 1200px;
+  }
   @media screen and (max-width: 750px) {
     .navbar-header{
       .nav-wrap{
@@ -135,6 +139,7 @@ export default defineComponent({
     }
     .navbar-main{
       height: 400px;
+      min-width: 300px;
     }
   }
 }
