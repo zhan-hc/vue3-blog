@@ -1,9 +1,9 @@
 <template>
-  <div>你好</div>
+  <div>你好主页</div>
 </template>
 
 <script lang='ts'>
-import {defineComponent, reactive, toRefs} from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: '',

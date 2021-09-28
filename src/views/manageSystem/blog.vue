@@ -1,4 +1,7 @@
 <template>
+  <router-link to="/manageIndex/markdown">
+    <el-button type="primary">新增博客</el-button>
+  </router-link>
   <el-table :data="tableData">
     <el-table-column type="index" label="序号" width="120">
     </el-table-column>
@@ -14,7 +17,7 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, reactive, toRefs} from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: '',

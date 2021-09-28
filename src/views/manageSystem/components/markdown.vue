@@ -1,18 +1,23 @@
 <template>
-  <div></div>
+  <div>
+    <v-md-editor v-model="text" height="400px"></v-md-editor>
+  </div>
 </template>
 
 <script lang='ts'>
-import {defineComponent, reactive, toRefs} from 'vue'
-
+import { defineComponent, ref } from 'vue'
 export default defineComponent({
   name: '',
   props: {
-    
   },
   components: {
-    
   },
+  setup () {
+    const mdValue = ref('')
+    return {
+      mdValue
+    }
+  }
 })
 </script>
 
