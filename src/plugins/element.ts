@@ -25,7 +25,8 @@ import {
   ElCol,
   ElCheckboxGroup,
   ElTimePicker,
-  ElCheckbox
+  ElCheckbox,
+  ElDialog
 } from 'element-plus'
 export const components: any[] = [
   ElButton,
@@ -53,6 +54,7 @@ export const components: any[] = [
   ElTableColumn,
   ElMenuItemGroup,
   ElMenuItem,
-  ElMain
+  ElMain,
+  ElDialog
 ]
 export const plugins: any[] = [ElInput]

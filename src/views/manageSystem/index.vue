@@ -18,8 +18,11 @@
         <el-menu :default-openeds="['1']">
           <el-submenu index="1">
             <template #title><i class="el-icon-tickets"></i>博客</template>
-            <router-link index="1" to="/manageIndex/blog">
-              <el-menu-item index="1">博客管理</el-menu-item>
+            <router-link index="1" to="/manage/blogArticle">
+              <el-menu-item index="1">博客文章管理</el-menu-item>
+            </router-link>
+            <router-link index="2" to="/manage/blogTag">
+              <el-menu-item index="2">博客标签管理</el-menu-item>
             </router-link>
             <!-- <el-menu-item index="1">博客管理</el-menu-item> -->
             <el-menu-item-group>
