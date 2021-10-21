@@ -11,6 +11,9 @@ import '@/assets/iconfont/iconfont.css'
 import '@/assets/scss/index.scss'
 import 'element-plus/lib/theme-chalk/index.css'
 import { components, plugins } from './plugins/element'
+import { Request } from '@/utils/request';
+import VueAxios from 'vue-axios'
+
 
 const app = createApp(App)
 
@@ -24,4 +27,4 @@ components.forEach(component => {
 plugins.forEach(plugin => {
   app.use(plugin)
 })
-app.use(store).use(router).use(VueMarkdownEditor).mount('#app')
+app.use(store).use(router).use(VueAxios, Request.init()).use(VueMarkdownEditor).mount('#app')
