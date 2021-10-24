@@ -1,9 +1,9 @@
 import { Request } from '@/utils/request';
+// import baseUrl from '@/utils/baseUrl'
  
- 
-export function login (parameter: any)  {
+export function login (parameter: any) {
     return Request.axiosInstance({
-        url: '/cxLogin',
+        url: `/login`,
         method: 'post',
         data: parameter
     })

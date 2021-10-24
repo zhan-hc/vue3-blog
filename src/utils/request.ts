@@ -32,18 +32,17 @@ export class Request {
     // 初始化拦截器
     public static initInterceptors() {
         // 设置post请求头
-        this.axiosInstance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+        this.axiosInstance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
         /**
          * 请求拦截器
          * 每次请求前，如果存在token则在请求头中携带token
          */
         this.axiosInstance.interceptors.request.use(
             (config: AxiosRequestConfig) => {
- 
-                // const token = Vue.ls.get(ACCESS_TOKEN)
-                // if (token) {
-                //     config.headers['Authorization'] = 'Bearer ' + token
-                // }
+                const token = localStorage.getItem('token')
+                if (token && config.headers) {
+                    config.headers['Authorization'] = token
+                }
  
                 // 登录流程控制中，根据本地是否存在token判断用户的登录情况
                 // 但是即使token存在，也有可能token是过期的，所以在每次的请求头中携带token
@@ -67,15 +66,19 @@ export class Request {
             // 请求成功
             (response: AxiosResponse) => {
                 // if (res.headers.authorization) {
-                //     localStorage.setItem('id_token', res.headers.authorization);
+                //     localStorage.setItem('token', res.headers.authorization);
                 // } else {
                 //     if (res.data && res.data.token) {
                 //         localStorage.setItem('id_token', res.data.token);
                 //     }
                 // }
- 
+              const data: any = response.data
                 if (response.status === 200) {
                     // return Promise.resolve(response.data);
+                    ElMessage({
+                      message: data.msg,
+                      type: data.code === 200 ? 'success' : 'error',
+                    })
                     return response;
                 } else {
                     Request.errorHandle(response);

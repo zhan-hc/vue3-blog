@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/manageIndex/markdown">
+  <router-link to="/manage/markdown">
     <el-button type="primary">新增文章</el-button>
   </router-link>
   <el-table :data="tableData">

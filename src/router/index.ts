@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import index from '../views/Index/index.vue'
 import manageIndex from '../views/manageSystem/index.vue'
-import markdown from '../views/manageSystem/blog/components/markdown.vue'
+import login from '../views/manageSystem/login/login.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -28,12 +28,17 @@ const routes: Array<RouteRecordRaw> = [
         name: 'blogTag',
         component: () => import('../views/manageSystem/blog/blogTag.vue'),
       },
+      {
+        path: 'markdown',
+        name: 'markdown',
+        component: () => import('../views/manageSystem/blog/components/markdown.vue'),
+      },
     ]
   },
   {
-    path: '/manageIndex/markdown',
-    name: ' markdown',
-    component: markdown
+    path: '/login',
+    name: 'login',
+    component: login
   }
 ]
 
