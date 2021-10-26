@@ -2,7 +2,7 @@
   <el-container>
     <el-header style="display: flex;">
       <p>博客管理系统</p>
-      <span>zhan-hc</span>
+      <span>{{userName}}</span>
       <el-dropdown>
         <i class="el-icon-setting"></i>
         <template #dropdown>
@@ -60,12 +60,18 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { computed, defineComponent } from 'vue'
 
   export default defineComponent({
     name: '',
     props: {},
     components: {},
+    setup () {
+      const userName = computed(() => {return sessionStorage.getItem('userName')})
+      return {
+        userName
+      }
+    }
   })
 </script>
 

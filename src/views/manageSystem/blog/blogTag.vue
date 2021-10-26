@@ -1,9 +1,9 @@
 <template>
   <el-button type="primary" @click="showDialog = true">新增标签</el-button>
-  <el-table :data="tableData">
+  <el-table :data="tagList">
     <el-table-column type="index" label="序号" width="120"> </el-table-column>
-    <el-table-column prop="title" label="标签名"> </el-table-column>
-    <el-table-column prop="date" label="日期" width="140"> </el-table-column>
+    <el-table-column prop="tagName" label="标签名"> </el-table-column>
+    <el-table-column prop="createTime" label="创建时间" width="140"> </el-table-column>
     <el-table-column label="操作" width="200">
       <el-button type="primary">编辑</el-button>
       <el-button type="danger">删除</el-button>
@@ -17,8 +17,8 @@
       label-width="120px"
       class="demo-ruleForm"
     >
-      <el-form-item label="标签名称" prop="name">
-        <el-input v-model="ruleForm.name"></el-input>
+      <el-form-item label="标签名称" prop="tagName">
+        <el-input v-model="ruleForm.tagName"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -32,9 +32,9 @@
   </el-dialog>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref, reactive, toRefs } from 'vue'
-
+<script>
+  import { defineComponent, ref, reactive, toRefs, onMounted } from 'vue'
+  import {getTagList} from '@/api/tag'
   export default defineComponent({
     name: 'blogTag',
     props: {},
@@ -43,10 +43,10 @@
       const showDialog = ref(false)
       const state = reactive({
         ruleForm: {
-          name: '',
+          tagName: '',
         },
         rules: {
-          name: [
+          tagName: [
             {
               required: true,
               message: '请输入标签名称',
@@ -54,20 +54,19 @@
             },
           ],
         },
-        tableData: [
-          {
-            date: '2016-05-02',
-            title: 'Vue'
-          },
-          {
-            date: '2016-05-02',
-            title: 'React'
-          },
-          {
-            date: '2016-05-02',
-            title: 'js'
+        params: {
+          pageSize: 10,
+          currentPage: 1
+        },
+        tagList: []
+      })
+      onMounted(() => {
+        getTagList(state.params).then(res => {
+          if (res.data.code === 200) {
+            const data = res.data.data
+            state.tagList = data.rows
           }
-        ]
+        })
       })
 
       return {

@@ -39,7 +39,7 @@ export class Request {
          */
         this.axiosInstance.interceptors.request.use(
             (config: AxiosRequestConfig) => {
-                const token = localStorage.getItem('token')
+                const token = sessionStorage.getItem('token')
                 if (token && config.headers) {
                     config.headers['Authorization'] = token
                 }

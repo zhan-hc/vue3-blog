@@ -16,11 +16,13 @@
 
 <script>
 import {defineComponent, reactive, ref, toRefs} from 'vue'
+import {useRouter} from 'vue-router'
 import {login} from '@/api/login'
 export default defineComponent({
   name: 'login',
   setup () {
     const ruleForm = ref(null)
+    const router = useRouter()
     const state = reactive({
       form: {
         username: '',
@@ -39,16 +41,17 @@ export default defineComponent({
     const submitForm = () => {
         ruleForm.value.validate((valid) => {
           if (valid) {
-            console.log(state.ruleForm)
             const params = {
               username: state.form.username,
               password: state.form.password
             }
             login(params).then(res => {
               if (res.data.code === 200) {
-                console.log(res.data.data)
-                const {data} = res.data.data
-                localStorage.setItem('token',data)
+                const data = res.data.data
+                sessionStorage.setItem('token',data.token)
+                sessionStorage.setItem('userId', data.userId)
+                sessionStorage.setItem('userName', state.form.username)
+                router.push('/manage')
               }
             })
           } else {
