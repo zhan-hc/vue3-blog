@@ -73,12 +73,12 @@ export class Request {
                 //     }
                 // }
               const data: any = response.data
-                if (response.status === 200) {
+                if (response.status === 200 && data.code === 200) {
                     // return Promise.resolve(response.data);
-                    ElMessage({
-                      message: data.msg,
-                      type: data.code === 200 ? 'success' : 'error',
-                    })
+                    // ElMessage({
+                    //   message: data.msg,
+                    //   type: data.code === 200 ? 'success' : 'error',
+                    // })
                     return response;
                 } else {
                     Request.errorHandle(response);
@@ -113,6 +113,12 @@ export class Request {
      * @param res 响应回调,根据不同响应进行不同操作
      */
     private static errorHandle(res: any) {
+      if (res.data.code === 10010 || res.data.code === 10011 ) {
+        sessionStorage.removeItem('token')
+        sessionStorage.removeItem('userId')
+        sessionStorage.removeItem('userName')
+        window.location.href = '/login'
+      }
         // 状态码判断
         switch (res.status) {
             case 401:
@@ -127,8 +133,8 @@ export class Request {
                 break;
             default:
               ElMessage({
-                message: '连接错误',
-                type: 'warning',
+                message: res.data.msg || '连接错误',
+                type: 'error',
               })
         }
     }

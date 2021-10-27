@@ -46,5 +46,22 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+router.beforeEach((to, from, next) => {
+  // 得到本地存储的token  想要进其他页面，就要带token
+  const token = sessionStorage.getItem('token')
+  if (token) {
+    if (to.path === '/login') {
+      next({ path: '/manage' });
+    } else {
+      next();
+    }
+  } else {
+    if (to.path !== '/login') {
+      next({ path: '/login' });
+    } else {
+      next();
+    }
+  }
+})
 
 export default router
