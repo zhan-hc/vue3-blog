@@ -28,7 +28,8 @@ import {
   ElCheckbox,
   ElDialog,
   ElPagination,
-  ElMessageBox
+  ElMessageBox,
+  ElUpload
 } from 'element-plus'
 export const components: any[] = [
   ElButton,
@@ -59,6 +60,7 @@ export const components: any[] = [
   ElMain,
   ElDialog,
   ElPagination,
-  ElMessageBox
+  ElMessageBox,
+  ElUpload
 ]
 export const plugins: any[] = [ElInput]

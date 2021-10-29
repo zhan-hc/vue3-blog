@@ -4,7 +4,7 @@ import manageIndex from '../views/manageSystem/index.vue'
 import login from '../views/manageSystem/login/login.vue'
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
+    path: '/blog',
     name: ' index',
     component: index
   },
@@ -49,6 +49,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // 得到本地存储的token  想要进其他页面，就要带token
   const token = sessionStorage.getItem('token')
+  console.log(to.path,to.path.indexOf('/blog'))
   if (token) {
     if (to.path === '/login') {
       next({ path: '/manage' });
@@ -56,7 +57,7 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } else {
-    if (to.path !== '/login') {
+    if (to.path !== '/login' && to.path.indexOf('/blog') === -1) {
       next({ path: '/login' });
     } else {
       next();

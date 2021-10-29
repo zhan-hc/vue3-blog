@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrap">
     <div class="content-left">
-      <article-item />
+      <article-item/>
     </div>
     <div class="content-right">
       <author-card />
@@ -10,11 +10,12 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue'
+<script>
+import { defineComponent, reactive, onMounted, toRefs, provide, ref } from 'vue'
 import articleItem from './articleItem.vue'
 import authorCard from './authorCard.vue'
 import recentPost from './recentPost.vue'
+import {getArticleList} from '@/api/article'
 export default defineComponent({
   name: '',
   props: {
@@ -26,7 +27,30 @@ export default defineComponent({
     recentPost
   },
   setup () {
-    return {}
+    // const state = reactive({
+    //   articleList: []
+    // })
+    const articleList = ref([])
+
+    provide('articleList', articleList)
+    
+    onMounted(async () => {
+      await getBlogArticleList()
+    })
+
+    // 获取标签列表
+    const getBlogArticleList = () => {
+      getArticleList({status: 1}).then(res => {
+        if (res.data.code === 200) {
+          const data = res.data.data
+          articleList.value = data.rows
+        }
+      })
+    }
+    return {
+      // ...toRefs(state),
+      articleList
+    }
   }
 })
 </script>
