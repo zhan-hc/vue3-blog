@@ -15,6 +15,7 @@ import { Request } from '@/utils/request';
 import VueAxios from 'vue-axios'
 import dayjs from 'dayjs'
 import baseUrl from './utils/baseUrl'
+import directives from './utils/directives'
 
 
 const app = createApp(App)
@@ -31,4 +32,4 @@ plugins.forEach(plugin => {
 })
 app.config.globalProperties.$dayjs=dayjs
 app.config.globalProperties.url=baseUrl
-app.use(store).use(router).use(VueAxios, Request.init()).use(VueMarkdownEditor).mount('#app')
+app.use(store).use(router).use(directives).use(VueAxios, Request.init()).use(VueMarkdownEditor).mount('#app')

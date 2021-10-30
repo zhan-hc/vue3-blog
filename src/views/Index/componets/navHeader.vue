@@ -1,6 +1,6 @@
 <template>
   <header class="navbar">
-    <div class="navbar-header">
+    <div class="navbar-header" v-scrollHide>
       <div class="navbar-left">
         <img src="@/assets/images/logo.png" alt="">
         <span>笨鸟博客</span>
