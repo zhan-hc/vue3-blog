@@ -14,7 +14,7 @@
       <el-form-item label="封面图" prop="pageImage">
         <el-upload
           class="upload-demo"
-          action="http://192.168.1.102:3000/blog/upload/images"
+          :action="`${url}/blog/upload/images`"
           :headers="headers"
           :on-success="uploadSuccess"
           :on-error="uploadError"
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import { defineComponent, ref, reactive, toRefs, onMounted } from 'vue'
+  import { defineComponent, ref, reactive, toRefs, onMounted, getCurrentInstance } from 'vue'
   import {useRouter, useRoute} from 'vue-router'
   import {getTagList} from '@/api/tag'
   import {addBlogArticle, getArticleList, updateBlogArticle} from '@/api/article'
@@ -65,6 +65,7 @@
       const blogForm = ref(null)
       const router = useRouter()
       const route = useRoute()
+      const {proxy} = getCurrentInstance()
       const state = reactive({
         ruleForm: {
           title: '',
@@ -147,7 +148,7 @@
         state.fileList = [
           {
             name: filename,
-            url: `http://192.168.1.102:3000/images/${filename}`
+            url: `${proxy.url}/images/${filename}`
           }
         ]
         state.ruleForm.pageImage = filename
@@ -174,7 +175,7 @@
               state.fileList = [
                 {
                   name: rows[0].pageImage,
-                  url: `http://192.168.1.102:3000/images/${rows[0].pageImage}`
+                  url: `${proxy.url}/images/${rows[0].pageImage}`
                 }
               ]
             )

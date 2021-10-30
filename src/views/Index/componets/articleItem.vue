@@ -2,7 +2,7 @@
   <div class="article-wrap">
     <div class="article-item card" v-for="item in data" :key="item.id">
       <div class="article-img">
-        <img :src="`http://192.168.1.102:3000/images/${item.pageImage}`" alt="">
+        <img :src="`api/images/${item.pageImage}`" alt="">
       </div>
       <div class="article-info">
         <div class="title">{{item.title}}</div>

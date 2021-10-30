@@ -39,7 +39,8 @@
           currentPage: 1,
           tagName: ''
         },
-        articleList: []
+        articleList: [],
+        total: 0
       })
       onMounted(() => {
         getBlogArticleList()
