@@ -30,6 +30,6 @@ components.forEach(component => {
 plugins.forEach(plugin => {
   app.use(plugin)
 })
-app.config.globalProperties.$dayjs=dayjs
+app.config.globalProperties.dayjs=dayjs
 app.config.globalProperties.url=baseUrl
 app.use(store).use(router).use(directives).use(VueAxios, Request.init()).use(VueMarkdownEditor).mount('#app')

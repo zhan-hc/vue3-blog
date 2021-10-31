@@ -37,6 +37,7 @@ export default defineComponent({
   .iconfont{
     margin-right: 5px;
     cursor: pointer;
+    color: #000;
   }
   input{
     width: 160px;

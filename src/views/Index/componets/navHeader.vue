@@ -1,6 +1,6 @@
 <template>
   <header class="navbar">
-    <div class="navbar-header" v-scrollHide>
+    <div class="navbar-header" v-scrollHide :style="{color: hasIndex ? '#000' : '#fff'}">
       <div class="navbar-left">
         <img src="@/assets/images/logo.png" alt="">
         <span>笨鸟博客</span>
@@ -20,7 +20,7 @@
         </div>
       </nav>
     </div>
-    <iframe class="navbar-main" frameborder="0" scrolling="no" src="sawtooth/sawtooth.html" height="650px"></iframe>
+    <iframe v-if="hasIndex" class="navbar-main" frameborder="0" scrolling="no" src="sawtooth/sawtooth.html" height="650px"></iframe>
   </header>
   <drop-left :visibleShow="visibleShow">
     <template #content>
@@ -30,7 +30,7 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, ref, provide} from 'vue'
+import {defineComponent, ref, provide, inject} from 'vue'
 import { navList } from '@/assets/ts/common'
 import headerInput from '@/components/base/searchInput.vue'
 import dropLeft from '@/components/base/dropLeft.vue'
@@ -48,12 +48,14 @@ export default defineComponent({
   setup () {
     const searchVal = ref('')
     const visibleShow = ref(false)
+    const hasIndex = inject('hasIndex')
     provide('visibleShow', visibleShow)
     const show = () => {
       visibleShow.value = true
     }
     return {
       show,
+      hasIndex,
       navList,
       searchVal,
       visibleShow

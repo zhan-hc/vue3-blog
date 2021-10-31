@@ -10,7 +10,7 @@ import { defineComponent, ref, provide } from 'vue'
 import navHeader from './componets/navHeader.vue'
 import indexContent from './componets/indexContent.vue'
 export default defineComponent({
-  name: '',
+  name: 'blogIndex',
   props: {
     
   },
@@ -20,8 +20,12 @@ export default defineComponent({
   },
   setup () {
     const activeIndex = ref(0)
+    const hasIndex = ref(1) //是否是首页
     provide('activeIndex', activeIndex)
-    return {}
+    provide('hasIndex', hasIndex)
+    return {
+
+    }
   }
 })
 </script>

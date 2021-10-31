@@ -6,7 +6,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'main',
+  name: 'manageMain',
   props: {
     
   },

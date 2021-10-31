@@ -17,7 +17,7 @@ import authorCard from './authorCard.vue'
 import recentPost from './recentPost.vue'
 import {getArticleList} from '@/api/article'
 export default defineComponent({
-  name: '',
+  name: 'indexContent',
   props: {
     
   },
@@ -38,7 +38,7 @@ export default defineComponent({
       await getBlogArticleList()
     })
 
-    // 获取标签列表
+    // 获取文章列表
     const getBlogArticleList = () => {
       getArticleList({status: 1}).then(res => {
         if (res.data.code === 200) {
