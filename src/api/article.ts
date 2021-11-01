@@ -45,3 +45,11 @@ export function deleteBlogArticle (parameter: any) {
         data: parameter
     })
 }
+// 增加阅读量
+export function addArticleReading (parameter: any) {
+  return Request.axiosInstance({
+      url: `/blog/article/addArticleReading`,
+      method: 'post',
+      data: parameter
+  })
+}

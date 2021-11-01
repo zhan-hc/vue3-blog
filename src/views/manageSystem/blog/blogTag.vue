@@ -84,7 +84,8 @@
         params: {
           pageSize: 10,
           currentPage: 1,
-          tagName: ''
+          tagName: '',
+          check: 1
         },
         keywords: '',
         tagList: []
@@ -105,7 +106,8 @@
       // 添加标签
       const addOrUpdateTag = () => {
         const params = {
-          tagName: state.ruleForm.tagName
+          tagName: state.ruleForm.tagName,
+          check: 1
         }
         state.status && (params.id = state.tagId)
         TagForm.value.validate((valid) => {
@@ -152,7 +154,7 @@
           type: 'warning',
         }
       ).then(() => {
-          onlineBlogTag({id: id,status: !status}).then(res => {
+          onlineBlogTag({id: id,status: !status,check: 1}).then(res => {
             if (res.data.code === 200) {
               ElMessage({
                 message: res.data.msg,
@@ -177,7 +179,7 @@
           type: 'warning',
         }
       ).then(() => {
-          deleteBlogTag({id: id}).then(res => {
+          deleteBlogTag({id: id,check: 1}).then(res => {
             if (res.data.code === 200) {
               ElMessage({
                 message: res.data.msg,

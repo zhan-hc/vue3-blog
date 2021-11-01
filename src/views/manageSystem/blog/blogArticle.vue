@@ -37,7 +37,8 @@
         params: {
           pageSize: 10,
           currentPage: 1,
-          tagName: ''
+          tagName: '',
+          check: 1
         },
         articleList: [],
         total: 0
@@ -80,7 +81,7 @@
           type: 'warning',
         }
       ).then(() => {
-          deleteBlogArticle({id: id}).then(res => {
+          deleteBlogArticle({id: id,check: 1}).then(res => {
             if (res.data.code === 200) {
               ElMessage({
                 message: res.data.msg,
@@ -105,7 +106,7 @@
           type: 'warning',
         }
       ).then(() => {
-          onlineBlogArticle({id: id,status: !status}).then(res => {
+          onlineBlogArticle({id: id,status: !status,check: 1}).then(res => {
             if (res.data.code === 200) {
               ElMessage({
                 message: res.data.msg,
