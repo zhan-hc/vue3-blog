@@ -17,6 +17,13 @@
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         <el-menu :default-openeds="['1']">
           <el-submenu index="1">
+            <template #title>
+              <router-link index="1" to="/manage">
+              <i class="el-icon-house"></i>首页
+              </router-link>
+            </template>
+          </el-submenu>
+          <el-submenu index="2">
             <template #title><i class="el-icon-tickets"></i>博客</template>
             <router-link index="1" to="/manage/blogArticle">
               <el-menu-item index="1">博客文章管理</el-menu-item>
@@ -25,17 +32,8 @@
               <el-menu-item index="2">博客标签管理</el-menu-item>
             </router-link>
             <!-- <el-menu-item index="1">博客管理</el-menu-item> -->
-            <el-menu-item-group>
-              <template #title>分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-3">
-              <template #title>选项3</template>
-              <el-menu-item index="1-3-1">选项3-1</el-menu-item>
-            </el-submenu>
           </el-submenu>
-          <el-submenu index="2">
+          <el-submenu index="3">
             <template #title><i class="el-icon-menu"></i>导航二</template>
             <el-menu-item-group>
               <template #title>分组一</template>

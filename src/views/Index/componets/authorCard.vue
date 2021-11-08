@@ -45,7 +45,7 @@ export default defineComponent({
 .author-wrap{
   display: inline-block;
   width: 277px;
-  height: 346px;
+  // height: 346px;
   padding: 20px;
   text-align: center;
   .avatar-img{
