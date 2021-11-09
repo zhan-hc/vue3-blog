@@ -1,6 +1,6 @@
 <template>
   <div class="article-wrap">
-    <div class="article-item card" v-for="item in data" :key="item.id" @click="goDetail(item.id)">
+    <div class="article-item card" v-for="item in articleData" :key="item.id" @click="goDetail(item.id)">
       <div class="article-img">
         <img :src="`api/images/${item.pageImage}`" alt="">
       </div>
@@ -23,16 +23,22 @@ import { defineComponent, inject } from 'vue'
   import {useRouter} from 'vue-router'
 export default defineComponent({
   name: 'articleItem',
+  props: {
+    articleData: {
+      type: Object,
+      default: () => {return {}}
+    }
+  },
   components: {
   },
   setup () {
     const router = useRouter()
-    const data  = inject('articleList')
+    // const data  = inject('articleList')
     const goDetail = (id) => {
       router.push({name:'blogDetail',query: {id: id}})
     }
     return {
-      data,
+      // data,
       goDetail
     }
   }

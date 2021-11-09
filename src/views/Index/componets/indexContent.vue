@@ -1,10 +1,10 @@
 <template>
   <div class="content-wrap">
     <div class="content-left">
-      <article-item/>
+      <article-item :articleData="articleData.rows"/>
     </div>
     <div class="content-right">
-      <author-card />
+      <author-card :artLen="articleData.count"/>
       <recent-post />
     </div>
   </div>
@@ -27,13 +27,12 @@ export default defineComponent({
     recentPost
   },
   setup () {
-    // const state = reactive({
-    //   articleList: []
-    // })
-    const articleList = ref([])
-
-    provide('articleList', articleList)
-    
+    // const articleList = ref([])
+    // provide('articleList', articleList)
+    // cons
+    const state = reactive({
+      articleData:{}
+    })
     onMounted(async () => {
       await getBlogArticleList()
     })
@@ -42,14 +41,12 @@ export default defineComponent({
     const getBlogArticleList = () => {
       getArticleList({status: 1}).then(res => {
         if (res.data.code === 200) {
-          const data = res.data.data
-          articleList.value = data.rows
+          state.articleData = res.data.data
         }
       })
     }
     return {
-      // ...toRefs(state),
-      articleList
+      ...toRefs(state)
     }
   }
 })

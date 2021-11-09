@@ -21,8 +21,8 @@
       label-width="120px"
       class="demo-ruleForm"
     >
-      <el-form-item label="昵称" prop="blogname">
-        <el-input v-model="ruleForm.blogname"></el-input>
+      <el-form-item label="昵称" prop="blogName">
+        <el-input v-model="ruleForm.blogName"></el-input>
       </el-form-item>
       <el-form-item label="个性签名" prop="motto">
         <el-input v-model="ruleForm.motto" type="textarea" rows="2"></el-input>
@@ -38,6 +38,7 @@
 <script>
 import { defineComponent, toRefs, ref, reactive, getCurrentInstance, onMounted, computed } from 'vue'
 import {getUserInfo, updateUserInfo} from '@/api/user'
+  import {ElMessage} from 'element-plus'
 export default defineComponent({
   name: 'manageMain',
   setup () {
@@ -46,12 +47,12 @@ export default defineComponent({
     const state = reactive({
       ruleForm: {
         avatar: '',
-        blogname: '',
+        blogName: '',
         motto: '',
         github: ''
       },
       rules: {
-        blogname: [
+        blogName: [
           {
             required: true,
             message: '请输入名称',
@@ -69,15 +70,13 @@ export default defineComponent({
       })
 
     const getUser = () => {
-      console.log(id.value)
       getUserInfo({id:id.value}).then(res => {
         if (res.data.code === 200) {
-            const data = res.data.data[0]
-            Object.keys(data).forEach(item => {
-              data[item] && (state.ruleForm[item] = data[item])
-            })
-            getUser()
-          }
+          const data = res.data.data[0]
+          Object.keys(data).forEach(item => {
+            data[item] && (state.ruleForm[item] = data[item])
+          })
+        }
       })
     }
 
@@ -85,8 +84,14 @@ export default defineComponent({
     const saveUserInfo = () => {
       userForm.value.validate((valid) => {
           if (valid) {
-            updateUserInfo({...state.ruleForm,id:id.value }).then(res => {
-              console.log(res)
+            updateUserInfo({...state.ruleForm,id:id.value,check: 1 }).then(res => {
+              if (res.data.code === 200) {
+                ElMessage({
+                  message: res.data.msg,
+                  type: 'success',
+                })
+                getUser()
+              }
             })
           }
         })
@@ -117,9 +122,8 @@ export default defineComponent({
 </script>
 <style scoped lang='scss'>
 .author-wrap{
-  display: inline-block;
-  // width: 277px;
-  // height: 346px;
+  // display: inline-block;
+  float: right;
   padding: 20px;
   text-align: center;
   .avatar-img{
