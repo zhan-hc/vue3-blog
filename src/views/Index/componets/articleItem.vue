@@ -8,7 +8,7 @@
         <div class="title">{{item.title}}</div>
         <div class="time"><i class="iconfont icon-rili"></i> {{item.createTime}}</div>
         <div class="desc">{{item.desc}}</div>
-        <div class="action">
+        <div class="action" :class="i%2!==0 ? 'left' : 'right'">
           <span><i class="iconfont icon-eye1"></i>{{item.reading}}</span>
           <span><i class="iconfont icon-dianzan_active"></i>{{item.star}}</span>
           <span><i class="iconfont icon-pinglun1"></i>20</span>
@@ -105,7 +105,12 @@ export default defineComponent({
       .action{
         position: absolute;
         bottom: 30px;
-        left: 40px;
+        &.left{
+          left: 40px;
+        }
+        &.right{
+          right: 40px;
+        }
         span{
           margin-right: 20px;
           i{
