@@ -1,7 +1,7 @@
 <template>
   <div class="article-wrap">
-    <div class="article-item card" v-for="item in articleData" :key="item.id" @click="goDetail(item.id)">
-      <div class="article-img">
+    <div class="article-item card" v-for="(item, i) in articleData.rows" :key="item.id" @click="goDetail(item.id)">
+      <div class="article-img left" v-show="i%2===0">
         <img :src="`api/images/${item.pageImage}`" alt="">
       </div>
       <div class="article-info">
@@ -14,12 +14,16 @@
           <span><i class="iconfont icon-pinglun1"></i>20</span>
         </div>
       </div>
+      <div class="article-img right"  v-show="i%2!==0">
+        <img :src="`api/images/${item.pageImage}`" alt="">
+      </div>
     </div>
+    <el-pagination class="pag" layout="prev, pager, next" :total="articleData.count" @current-change="handleCurrentChange"></el-pagination>
   </div>
 </template>
 
 <script>
-import { defineComponent, inject } from 'vue'
+import { defineComponent, inject, ref } from 'vue'
   import {useRouter} from 'vue-router'
 export default defineComponent({
   name: 'articleItem',
@@ -31,15 +35,20 @@ export default defineComponent({
   },
   components: {
   },
-  setup () {
+  setup (props, context) {
     const router = useRouter()
-    // const data  = inject('articleList')
+    const total = ref(0)
     const goDetail = (id) => {
       router.push({name:'blogDetail',query: {id: id}})
     }
+    const handleCurrentChange = (val) => {
+      context.emit('changePage', val)
+
+    }
     return {
-      // data,
-      goDetail
+      total,
+      goDetail,
+      handleCurrentChange
     }
   }
 })
@@ -55,15 +64,27 @@ export default defineComponent({
       width: 350px;
       height: 100%;
       background-color: #196a73;
-      border-radius: 12px 0 0 12px;
+      // border-radius: 12px 0 0 12px;
       overflow: hidden;
       img{
         width: 100%;
         height: 100%;
-        border-radius: 12px 0 0 12px;
+        // border-radius: 12px 0 0 12px;
         transition: all 0.5s ease;
         &:hover{
           transform: scale(1.1);
+        }
+      }
+      &.left{
+        border-radius: 12px 0 0 12px;
+        img {
+          border-radius: 12px 0 0 12px;
+        }
+      }
+      &.right{
+        border-radius: 0 12px 12px 0;
+        img {
+          border-radius: 0 12px 12px 0;
         }
       }
     }
@@ -93,6 +114,9 @@ export default defineComponent({
         }
       }
     }
+  }
+  .el-pagination{
+    text-align: center;
   }
 }
 @media screen and (max-width: 850px) {

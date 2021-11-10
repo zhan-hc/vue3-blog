@@ -43,7 +43,7 @@ export default defineComponent({
     const state = reactive({
       userInfo: {}
     })
-    const id = computed(() => {return sessionStorage.getItem('userId')})
+    const id = computed(() => {return localStorage.getItem('userId')})
     onMounted (() => {
       getUser()
     })

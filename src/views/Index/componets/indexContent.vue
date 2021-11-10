@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrap">
     <div class="content-left">
-      <article-item :articleData="articleData.rows"/>
+      <article-item :articleData="articleData" @changePage="changePage"/>
     </div>
     <div class="content-right">
       <author-card :artLen="articleData.count"/>
@@ -31,7 +31,12 @@ export default defineComponent({
     // provide('articleList', articleList)
     // cons
     const state = reactive({
-      articleData:{}
+      articleData:{},
+      params: {
+        pageSize: 10,
+        currentPage: 1,
+        status: 1
+      }
     })
     onMounted(async () => {
       await getBlogArticleList()
@@ -39,14 +44,20 @@ export default defineComponent({
 
     // 获取文章列表
     const getBlogArticleList = () => {
-      getArticleList({status: 1}).then(res => {
+      getArticleList(state.params).then(res => {
         if (res.data.code === 200) {
           state.articleData = res.data.data
         }
       })
     }
+
+    const changePage = (val) => {
+      state.params.currentPage = val
+        getBlogArticleList()
+    }
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      changePage
     }
   }
 })
