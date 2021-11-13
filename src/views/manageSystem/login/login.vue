@@ -8,20 +8,22 @@
           <el-input v-model='form.password' placeholder='请输入密码' prefix-icon='el-icon-lock' show-password />
       </el-form-item>
       <el-form-item>
-          <el-button type='primary' @click='submitForm'>登录</el-button>
+          <el-button type='primary' @click='handleSubmit'>登录</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
-<script>
-import {defineComponent, reactive, ref, toRefs} from 'vue'
+<script lang="ts">
+import {defineComponent, reactive, ref, toRefs, Ref} from 'vue'
 import {useRouter} from 'vue-router'
 import {login} from '@/api/login'
+import validateFun from '@/use/validate'
 export default defineComponent({
   name: 'login',
   setup () {
-    const ruleForm = ref(null)
+    const {submitForm} = validateFun()
+    const ruleForm: Ref<HTMLElement | null> = ref(null)
     const router = useRouter()
     const state = reactive({
       form: {
@@ -38,31 +40,17 @@ export default defineComponent({
         ],
       }
     })
-    const submitForm = () => {
-        ruleForm.value.validate((valid) => {
-          if (valid) {
-            const params = {
-              username: state.form.username,
-              password: state.form.password
-            }
-            login(params).then(res => {
-              if (res.data.code === 200) {
-                const data = res.data.data
-                sessionStorage.setItem('token',data.token)
-                sessionStorage.setItem('userId', data.userId)
-                sessionStorage.setItem('userName', state.form.username)
-                router.push('/manage')
-              }
-            })
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
-      }
+    const handleSubmit = () => {
+      submitForm(ruleForm,() => login(state.form), (data:any) => {
+        sessionStorage.setItem('token',data.token)
+        sessionStorage.setItem('userId', data.userId)
+        sessionStorage.setItem('userName', state.form.username)
+        router.push('/manage')
+      })
+    }
       return {
         ruleForm,
-        submitForm,
+        handleSubmit,
         ...toRefs(state)
       }
   }

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { defineComponent, inject, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
   import {useRouter} from 'vue-router'
 export default defineComponent({
   name: 'articleItem',

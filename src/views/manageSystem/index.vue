@@ -8,7 +8,7 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>个人中心</el-dropdown-item>
-            <el-dropdown-item>退出</el-dropdown-item>
+            <el-dropdown-item @click="logout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -59,15 +59,21 @@
 
 <script lang="ts">
   import { computed, defineComponent } from 'vue'
-
+  import {useRouter} from 'vue-router'
   export default defineComponent({
     name: 'manageIndex',
     props: {},
     components: {},
     setup () {
+      const router = useRouter()
       const userName = computed(() => {return sessionStorage.getItem('userName')})
+      const logout = () => {
+        sessionStorage.clear()
+        router.push('/login')
+      }
       return {
-        userName
+        userName,
+        logout
       }
     }
   })
