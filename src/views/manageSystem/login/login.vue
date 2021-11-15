@@ -41,9 +41,9 @@ export default defineComponent({
       }
     })
     const handleSubmit = () => {
-      submitForm(ruleForm,() => login(state.form), (data:any) => {
-        sessionStorage.setItem('token',data.token)
-        sessionStorage.setItem('userId', data.userId)
+      submitForm(ruleForm,() => login(state.form), (res:any) => {
+        sessionStorage.setItem('token',res.data.token)
+        sessionStorage.setItem('userId', res.data.userId)
         sessionStorage.setItem('userName', state.form.username)
         router.push('/manage')
       })

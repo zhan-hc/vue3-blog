@@ -1,8 +1,17 @@
 <template>
   <router-link to="/manage/markdown">
     <el-button type="primary">新增文章</el-button>
+    <el-input
+    style="width:300px;float:right;"
+    v-model="params.keyword"
+    placeholder="标签名查询"
+  >
+    <template #append>
+      <el-button icon="el-icon-search" @click="getListFun()"></el-button>
+    </template>
+  </el-input>
   </router-link>
-  <el-table :data="articleList">
+  <el-table :data="dataList">
     <el-table-column type="index" label="序号" width="120"> </el-table-column>
     <el-table-column prop="title" label="标题"> </el-table-column>
     <el-table-column prop="createTime" label="日期" width="160"> </el-table-column>
@@ -14,53 +23,29 @@
     <el-table-column label="操作" width="310">
       <template #default="scope">
         <el-button type="primary" @click="editArticle(scope.row.id)">编辑</el-button>
-        <el-button type="danger" @click="deleteArticle(scope.row)">删除</el-button>
-        <el-button type="success" @click="onlineArticle(scope.row)">{{scope.row.status === 1 ? '下线': '上线'}}</el-button>
+        <el-button type="danger" @click="deleteFun(scope.row,'title')">删除</el-button>
+        <el-button type="success" @click="onlineFun(scope.row,'title')">{{scope.row.status === 1 ? '下线': '上线'}}</el-button>
       </template>
     </el-table-column>
   </el-table>
-  <el-pagination class="pag" layout="prev, pager, next" :total="total" @current-change="handleCurrentChange"></el-pagination>
+  <el-pagination class="pag" layout="prev, pager, next" :total="total"  :page-size="params.pageSize" @current-change="handleCurrentChange"></el-pagination>
 </template>
 
 <script>
   import { defineComponent, toRefs, reactive, onMounted } from 'vue'
   import {useRouter} from 'vue-router'
-  import {getArticleList, deleteBlogArticle,onlineBlogArticle} from '@/api/article'
-  import {ElMessageBox, ElMessage} from 'element-plus'
+  import apiFun from '@/use/api'
   export default defineComponent({
     name: 'blogArticle',
     props: {},
     components: {},
     setup() {
+      const {onlineFun,getListFun,defaultData, deleteFun, handleCurrentChange} = apiFun(1)
       const router = useRouter()
-      const state = reactive({
-        params: {
-          pageSize: 10,
-          currentPage: 1,
-          tagName: '',
-          check: 1
-        },
-        articleList: [],
-        total: 0
-      })
       onMounted(() => {
-        getBlogArticleList()
+        getListFun()
       })
-      // 获取文章列表
-      const getBlogArticleList = () => {
-        getArticleList(state.params).then(res => {
-          if (res.data.code === 200) {
-            const data = res.data.data
-            state.articleList = data.rows
-            state.total = data.count
-          }
-        })
-      }
-      // 换页
-      const handleCurrentChange = (val) => {
-        state.params.currentPage = val
-        getBlogArticleList()
-      }
+
       const editArticle = (id) => {
         router.push({
           name: 'markdown',
@@ -69,61 +54,13 @@
           }
         })
       }
-      // 删除文章
-      const deleteArticle = (row) => {
-        const {id, title} = row
-        ElMessageBox.confirm(
-        `确认删除${title}文章吗?`,
-        'Warning',
-        {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
-          type: 'warning',
-        }
-      ).then(() => {
-          deleteBlogArticle({id: id,check: 1}).then(res => {
-            if (res.data.code === 200) {
-              ElMessage({
-                message: res.data.msg,
-                type: 'success',
-              })
-              getBlogArticleList()
-            }
-          })
-        })
-        .catch()
-      }
 
-      // 上下线
-      const onlineArticle = (row) => {
-        const {id, status, title} = row
-        ElMessageBox.confirm(
-        `确认${status === 1 ? '下线': '上线'}【${title}】文章吗?`,
-        'Warning',
-        {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
-          type: 'warning',
-        }
-      ).then(() => {
-          onlineBlogArticle({id: id,status: !status,check: 1}).then(res => {
-            if (res.data.code === 200) {
-              ElMessage({
-                message: res.data.msg,
-                type: 'success',
-              })
-              getBlogArticleList()
-            }
-          })
-        })
-        .catch()
-      }
       return {
-        ...toRefs(state),
+        ...toRefs(defaultData),
         editArticle,
-        getArticleList,
-        deleteArticle,
-        onlineArticle,
+        onlineFun,
+        getListFun,
+        deleteFun,
         handleCurrentChange
       }
     },

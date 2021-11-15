@@ -11,11 +11,10 @@ export default function validateFun () {
   function submitForm (formDom:any,api:any,callback: callBack) {
     formDom.value.validate((valid: boolean) => {
         if (valid) {
-          api.then((res?: any) => {
+          api().then((res?: any) => {
             const resData = res.data
             if (resData.code === 200) {
-              const data = resData.data
-              callback(data)
+              callback(resData)
             }
           })
         } else {
