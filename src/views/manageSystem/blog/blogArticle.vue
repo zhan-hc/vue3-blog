@@ -1,6 +1,7 @@
 <template>
   <router-link to="/manage/markdown">
     <el-button type="primary">新增文章</el-button>
+  </router-link>
     <el-input
     style="width:300px;float:right;"
     v-model="params.keyword"
@@ -10,7 +11,6 @@
       <el-button icon="el-icon-search" @click="getListFun()"></el-button>
     </template>
   </el-input>
-  </router-link>
   <el-table :data="dataList">
     <el-table-column type="index" label="序号" width="120"> </el-table-column>
     <el-table-column prop="title" label="标题"> </el-table-column>

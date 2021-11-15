@@ -4,16 +4,6 @@ import {getArticleList, deleteBlogArticle,onlineBlogArticle} from '@/api/article
 import {ElMessage,ElMessageBox} from 'element-plus'
 
 
-const defaultData = reactive({
-  total: 0,
-  params: {
-    pageSize: 10,
-    currentPage: 1,
-    keyword: '',
-    check: 1
-  },
-  dataList: []
-})
 const typeName = [
   '标签',
   '文章'
@@ -34,7 +24,17 @@ deleteBlogArticle
 
 export default function apiFun (type:number) {
 
-
+  const defaultData = reactive({
+    total: 0,
+    params: {
+      pageSize: 10,
+      currentPage: 1,
+      keyword: '',
+      check: 1
+    },
+    dataList: []
+  })
+  
    /**
     * [getListFun 获取列表]
   **/
