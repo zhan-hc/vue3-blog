@@ -1,25 +1,33 @@
+// 后台模块 列表|上下线|删除 接口函数复用
+
 import { ref, reactive, toRefs, onMounted } from 'vue'
 import {getTagList, onlineBlogTag, deleteBlogTag} from '@/api/tag'
+import {getCategoryList, onlineBlogCategory, deleteBlogCategory} from '@/api/category'
 import {getArticleList, deleteBlogArticle,onlineBlogArticle} from '@/api/article'
 import {ElMessage,ElMessageBox} from 'element-plus'
 
 
 const typeName = [
   '标签',
-  '文章'
+  '文章',
+  '分类'
 ]
 const onlineApi = [
   onlineBlogTag,
-  onlineBlogArticle
+  onlineBlogArticle,
+  onlineBlogCategory
+
  ]
 const getListApi = [
 getTagList,
-getArticleList
+getArticleList,
+getCategoryList
 ]
 
 const deleteApi = [
 deleteBlogTag,
-deleteBlogArticle
+deleteBlogArticle,
+deleteBlogCategory
 ]
 
 export default function apiFun (type:number) {
@@ -110,6 +118,8 @@ export default function apiFun (type:number) {
     defaultData.params.currentPage = val
     getListFun()
   }
+
+  
 
   return {
     defaultData,

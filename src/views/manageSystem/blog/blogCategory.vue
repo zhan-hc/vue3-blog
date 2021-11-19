@@ -1,9 +1,9 @@
 <template>
-  <el-button type="primary" @click="showDialog = true;status=0">新增标签</el-button>
+  <el-button type="primary" @click="showDialog = true;status=0">新增分类</el-button>
   <el-input
     style="width:300px;float:right;"
     v-model="params.keyword"
-    placeholder="标签名查询"
+    placeholder="分类查询"
   >
     <template #append>
       <el-button icon="el-icon-search" @click="getListFun()"></el-button>
@@ -11,7 +11,7 @@
   </el-input>
   <el-table :data="dataList">
     <el-table-column type="index" label="序号" width="120"> </el-table-column>
-    <el-table-column prop="tagName" label="标签名"> </el-table-column>
+    <el-table-column prop="categoryName" label="分类"> </el-table-column>
     <el-table-column prop="status" label="状态">
       <template #default="scope">
         <p>{{scope.row.status === 1 ? '上线': '下线'}}</p>
@@ -24,29 +24,29 @@
     </el-table-column>
     <el-table-column label="操作" width="310">
       <template #default="scope">
-        <el-button type="primary" @click="editTag(scope.row)">编辑</el-button>
-        <el-button type="danger"  @click="deleteFun(scope.row, 'tagName')">删除</el-button>
-        <el-button type="success" @click="onlineFun(scope.row, 'tagName')">{{scope.row.status === 1 ? '下线': '上线'}}</el-button>
+        <el-button type="primary" @click="editCategory(scope.row)">编辑</el-button>
+        <el-button type="danger"  @click="deleteFun(scope.row, 'categoryName')">删除</el-button>
+        <el-button type="success" @click="onlineFun(scope.row, 'categoryName')">{{scope.row.status === 1 ? '下线': '上线'}}</el-button>
       </template>
     </el-table-column>
   </el-table>
   <el-pagination class="pag" layout="prev, pager, next" :total="total" :page-size="params.pageSize" @current-change="(page) => handleCurrentChange(page,0)"></el-pagination>
-  <el-dialog v-model="showDialog" title="新增标签" width="30%" center>
+  <el-dialog v-model="showDialog" title="新增分类" width="30%" center>
     <el-form
-      ref="TagForm"
+      ref="CategoryForm"
       :model="ruleForm"
       :rules="rules"
       label-width="120px"
       class="demo-ruleForm"
     >
-      <el-form-item label="标签名称" prop="tagName">
-        <el-input v-model="ruleForm.tagName"></el-input>
+      <el-form-item label="分类名称" prop="categoryName">
+        <el-input v-model="ruleForm.categoryName"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="showDialog = false">Cancel</el-button>
-        <el-button type="primary" @click="addOrUpdateTag"
+        <el-button type="primary" @click="addOrUpdateCategory"
           >Confirm</el-button
         >
       </span>
@@ -56,46 +56,46 @@
 
 <script lang="ts">
   import { defineComponent, ref, reactive, toRefs, onMounted } from 'vue'
-  import { addBlogTag, updateBlogTag} from '@/api/tag'
+  import { addBlogCategory, updateBlogCategory} from '@/api/category'
   import {ElMessage} from 'element-plus'
   import apiFun from '@/use/commonApi'
   import validateFun from '@/use/validate'
   export default defineComponent({
-    name: 'blogTag',
+    name: 'blogCategory',
     props: {},
     components: {},
     setup() {
       const showDialog = ref(false)
-      const TagForm = ref(null)
+      const CategoryForm = ref(null)
       const {submitForm} = validateFun()
-      const {onlineFun,getListFun,defaultData, deleteFun, handleCurrentChange} = apiFun(0)
+      const {onlineFun,getListFun,defaultData, deleteFun, handleCurrentChange} = apiFun(2)
       const state = reactive({
         ruleForm: {
-          tagName: '',
+          categoryName: '',
           check: 1
         },
         rules: {
-          tagName: [
+          categoryName: [
             {
               required: true,
-              message: '请输入标签名称',
+              message: '请输入分类名称',
               trigger: 'blur',
             },
           ],
         },
         status: 0,// 0是新增1是编辑
-        tagId: null
+        categoryId: null
       })
       onMounted(() => {
         getListFun()
       })
-      // 添加标签
-      const addOrUpdateTag = () => {
-        submitForm(TagForm,
-          () => state.status ? updateBlogTag({...state.ruleForm,id: state.status ? state.tagId: undefined}) : addBlogTag(state.ruleForm),
+      // 添加分类
+      const addOrUpdateCategory = () => {
+        submitForm(CategoryForm,
+          () => state.status ? updateBlogCategory({...state.ruleForm,id: state.status ? state.categoryId: undefined}) : addBlogCategory(state.ruleForm),
           (res:any) => {
             getListFun()
-            state.ruleForm.tagName = ''
+            state.ruleForm.categoryName = ''
             showDialog.value = false
             ElMessage({
               message: res.msg,
@@ -105,10 +105,10 @@
         )
       }
       
-      // 编辑标签操作
-      const editTag = (row:any) => {
-        state.ruleForm.tagName = row.tagName
-        state.tagId = row.id
+      // 编辑分类操作
+      const editCategory = (row:any) => {
+        state.ruleForm.categoryName = row.categoryName
+        state.categoryId = row.id
         showDialog.value = true
         state.status = 1
       }
@@ -117,9 +117,9 @@
       return {
         ...toRefs(state),
         ...toRefs(defaultData),
-        TagForm,
-        addOrUpdateTag,
-        editTag,
+        CategoryForm,
+        addOrUpdateCategory,
+        editCategory,
         showDialog,
         onlineFun,
         getListFun,

@@ -12,23 +12,12 @@
         <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
       <el-form-item label="封面图" prop="pageImage">
-        <el-upload
-          class="upload-demo"
-          :action="`${url}/blog/upload/images`"
-          :headers="headers"
-          :on-success="uploadSuccess"
-          :on-error="uploadError"
-          :file-list="fileList"
-          accept=".jpg,.jpeg,.gif,.png"
-          list-type="picture"
-        >
-          <el-button size="small" type="primary">上传图片</el-button>
-          <template #tip>
-            <div class="el-upload__tip">
-              jpg/png files with a size less than 500kb
-            </div>
-          </template>
-        </el-upload>
+        <uploadImage @uploadSuccess="uploadSuccess" @uploadError="uploadError"/>
+      </el-form-item>
+      <el-form-item label="博客分类" prop="categoryId">
+        <el-select v-model="ruleForm.categoryId" placeholder="文章分类">
+          <el-option v-for="item in categoryList" :key="item.id"  :label="item.categoryName" :value="item.id"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="博客标签" prop="tagId">
         <el-select v-model="ruleForm.tagId" multiple placeholder="文章标签">
@@ -42,7 +31,7 @@
         <v-md-editor v-model="ruleForm.content" height="400px"></v-md-editor>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
+        <el-button type="primary" @click="handleSubmit('ruleForm')"
           >{{status ? '更改': '新增'}}</el-button
         >
         <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -54,22 +43,33 @@
 <script>
   import { defineComponent, ref, reactive, toRefs, onMounted, getCurrentInstance } from 'vue'
   import {useRouter, useRoute} from 'vue-router'
-  import {getTagList} from '@/api/tag'
+  import validateFun from '@/use/validate'
+  import categoryFun from '@/use/blogCategory'
+  import tagFun from '@/use/blogTag'
+  import uploadImage from '@/components/base/uploadImage.vue'
   import {addBlogArticle, getArticleList, updateBlogArticle} from '@/api/article'
   import {ElMessage} from 'element-plus'
   export default defineComponent({
     name: 'markdown',
     props: {},
-    components: {},
+    components: {
+      uploadImage
+    },
     setup() {
       const blogForm = ref(null)
       const router = useRouter()
       const route = useRoute()
       const {proxy} = getCurrentInstance()
+      const {submitForm} = validateFun()
+      const {tagData,getCategoryListFun} = categoryFun()
+      const {categoryData,getTagListFun} = tagFun()
+      console.log(tagData,categoryData,'按揭购房扣税的')
+      // const {onlineFun,getListFun,defaultData, deleteFun, handleCurrentChange} = apiFun(0)
       const state = reactive({
         ruleForm: {
           title: '',
           tagId: [],
+          categoryId:[],
           desc: '',
           content: '',
           pageImage: ''
@@ -92,59 +92,40 @@
             },
           ],
         },
-        tagList: [],
         fileList: [],
         headers: {
           'Authorization': `${sessionStorage.getItem('token')}`
         }
       })
       onMounted(() => {
-        getBlogTagList()
+        getCategoryListFun()
+        getTagListFun()
         if (route.query.id) {
           state.status = 1
           state.id = route.query.id
           getBlogArticleList(route.query.id)
         }
+        console.log(tagData,categoryData,'dfsdf')
       })
-      const submitForm = () => {
-        blogForm.value.validate((valid) => {
-          if (valid) {
-            state.status ?
-            updateBlogArticle({...state.ruleForm,id:state.id}).then(res => {redirectPage(res)}) :
-            addBlogArticle(state.ruleForm).then(res => {redirectPage(res)})
-          } else {
-            console.log('error submit!!')
-            return false
+      const handleSubmit = () => {
+        submitForm(blogForm,
+          () => state.status ? updateBlogArticle({...state.ruleForm,id:state.id}) : addBlogArticle(state.ruleForm),
+          res => {
+            blogForm.value.resetFields()
+            ElMessage({
+              message: res.msg,
+              type: 'success',
+            })
+            router.replace({name:'blogArticle'})
           }
-        })
-      }
-
-      const redirectPage = (res) => {
-        if (res.data.code === 200) {
-          blogForm.value.resetFields()
-          ElMessage({
-          message: res.data.msg,
-          type: 'success',
-        })
-          router.replace({name:'blogArticle'})
-        }
+        )
       }
 
       const resetForm = () => {
         blogForm.value.resetFields()
       }
-      // 获取标签列表
-      const getBlogTagList = () => {
-        getTagList({status: 1}).then(res => {
-          if (res.data.code === 200) {
-            const data = res.data.data
-            state.tagList = data.rows
-          }
-        })
-      }
       // 上传成功回调
-      const uploadSuccess = (response, file, fileList) => {
-        const {filename} = response.data
+      const uploadSuccess = (filename) => {
         state.fileList = [
           {
             name: filename,
@@ -152,10 +133,9 @@
           }
         ]
         state.ruleForm.pageImage = filename
-        console.log(state.fileList,'state.fileList')
       }
       // 上传失败回调
-      const uploadError = (error, file, fileList) => {
+      const uploadError = (error) => {
         console.log(error)
       }
       // 获取文章列表
@@ -163,10 +143,10 @@
         getArticleList({id:id}).then(res => {
           if (res.data.code === 200) {
             const {rows} = res.data.data
-            console.log(rows, 'aaaaa',rows[0].tag_id)
             state.ruleForm = {
               title: rows[0].title,
-              tagId: rows[0].tag_id ? rows[0].tag_id.split(',') : [],
+              tagId: rows[0].tagId ? rows[0].tagId.split(',').map(item=>Number(item)) : [],
+              categoryId: rows[0].categoryId || [],
               desc: rows[0].desc,
               content: rows[0].content,
               pageImage: rows[0].pageImage
@@ -187,13 +167,13 @@
       }
       return {
         ...toRefs(state),
+        ...toRefs(tagData),
+        ...toRefs(categoryData),
         blogForm,
-        submitForm,
+        handleSubmit,
         resetForm,
-        getBlogTagList,
         uploadSuccess,
         uploadError,
-        redirectPage,
         getBlogArticleList
       }
     },

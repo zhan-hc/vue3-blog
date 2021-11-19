@@ -31,10 +31,10 @@
   <el-pagination class="pag" layout="prev, pager, next" :total="total"  :page-size="params.pageSize" @current-change="handleCurrentChange"></el-pagination>
 </template>
 
-<script>
+<script lang="ts">
   import { defineComponent, toRefs, reactive, onMounted } from 'vue'
   import {useRouter} from 'vue-router'
-  import apiFun from '@/use/api'
+  import apiFun from '@/use/commonApi'
   export default defineComponent({
     name: 'blogArticle',
     props: {},
@@ -46,7 +46,7 @@
         getListFun()
       })
 
-      const editArticle = (id) => {
+      const editArticle = (id:number) => {
         router.push({
           name: 'markdown',
           query: {

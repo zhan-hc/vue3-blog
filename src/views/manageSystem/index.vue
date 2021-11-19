@@ -15,7 +15,7 @@
     </el-header>
     <el-container style="height: 800px; border: 1px solid #eee">
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="['1']">
+        <el-menu :default-openeds="['2']">
           <el-submenu index="1">
             <template #title>
               <router-link index="1" to="/manage">
@@ -30,6 +30,9 @@
             </router-link>
             <router-link index="2" to="/manage/blogTag">
               <el-menu-item index="2">博客标签管理</el-menu-item>
+            </router-link>
+            <router-link index="3" to="/manage/blogCategory">
+              <el-menu-item index="3">博客分类管理</el-menu-item>
             </router-link>
             <!-- <el-menu-item index="1">博客管理</el-menu-item> -->
           </el-submenu>

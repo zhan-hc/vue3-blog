@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import index from '../views/Index/index.vue'
 import manageIndex from '../views/manageSystem/index.vue'
 import blogDetail from '../views/Index/blogDetail.vue'
+import upload from '../components/base/uploadFile.vue'
 import login from '../views/manageSystem/login/login.vue'
 import {addArticleReading} from '@/api/article'
 const routes: Array<RouteRecordRaw> = [
@@ -14,6 +15,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/blog/blogDetail',
     name: 'blogDetail',
     component: blogDetail
+  },
+  {
+    path: '/upload',
+    name: 'upload',
+    component: upload
   },
   {
     path: '/manage',
@@ -34,6 +40,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'blogTag',
         name: 'blogTag',
         component: () => import('../views/manageSystem/blog/blogTag.vue'),
+      },
+      {
+        path: 'blogCategory',
+        name: 'blogCategory',
+        component: () => import('../views/manageSystem/blog/blogCategory.vue'),
       },
       {
         path: 'markdown',
