@@ -94,14 +94,16 @@ export class Request {
                     Request.errorHandle(response);
                     return Promise.reject(response.data);
                 } else {
-                    // 处理断网的情况
-                    // eg:请求超时或断网时，更新state的network状态
-                    // network状态在app.vue中控制着一个全局的断网提示组件的显示隐藏
-                    // 关于断网组件中的刷新重新获取数据，会在断网组件中说明
+                  if (error.message !== "中断上传!") {
                     ElMessage({
                       message: '网络连接异常,请稍后再试!',
                       type: 'warning',
                     })
+                  }
+                    // 处理断网的情况
+                    // eg:请求超时或断网时，更新state的network状态
+                    // network状态在app.vue中控制着一个全局的断网提示组件的显示隐藏
+                    // 关于断网组件中的刷新重新获取数据，会在断网组件中说明
                     
                 }
             });
