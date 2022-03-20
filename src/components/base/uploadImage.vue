@@ -18,37 +18,40 @@
   </el-upload>
 </template>
 
-<script lang='ts'>
-import {defineComponent, reactive, toRefs} from 'vue'
+<script lang="ts">
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-export default defineComponent({
-  name: '',
-  props: {
-  },
-  setup(props, context) {
-    const state = {
-      headers: {
-        'Authorization': `${sessionStorage.getItem('token')}`
+  export default defineComponent({
+    name: '',
+    props: {
+      fileList: {
+        type: Array,
+        default: () => [],
       },
-    }
+    },
+    setup(props, context) {
+      const state = {
+        headers: {
+          Authorization: `${sessionStorage.getItem('token')}`,
+        },
+      }
 
-    const uploadSuccess = (response: any) => {
-        const {filename} = response.data
-        context.emit('uploadSuccess',filename)
+      const uploadSuccess = (response: any) => {
+        const { filename } = response.data
+        context.emit('uploadSuccess', filename)
       }
       // 上传失败回调
-      const uploadError = (error:any) => {
-        context.emit('uploadError',error)
+      const uploadError = (error: any) => {
+        context.emit('uploadError', error)
       }
-    return {
-      ...toRefs(state),
-      uploadSuccess,
-      uploadError
-    }
-  }
-})
+      console.log(props.fileList, 'fileListfileList')
+      return {
+        ...toRefs(state),
+        uploadSuccess,
+        uploadError,
+      }
+    },
+  })
 </script>
 
-<style scoped lang='scss'>
-  
-</style>
+<style scoped lang="scss"></style>

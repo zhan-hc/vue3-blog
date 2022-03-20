@@ -18,7 +18,7 @@ export default function categoryFun () {
       if (res.data.code === 200) {
         const data = res.data.data
         categoryData.categoryList = data.rows
-        console.log(categoryData)
+        console.log(categoryData, 'categoryData')
       }
     })
   }

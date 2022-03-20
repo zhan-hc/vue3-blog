@@ -27,9 +27,14 @@ const routes: Array<RouteRecordRaw> = [
     component: manageIndex,
     children:[
       {
-        path: '',
+        path: 'main',
         name: 'main',
         component: () => import('../views/manageSystem/main.vue'),
+      },
+      {
+        path: 'layout',
+        name: 'layout',
+        component: () => import('../views/manageSystem/layout.vue'),
       },
       {
         path: 'blogArticle',
